@@ -25,4 +25,9 @@ svg
 
 // Line
 svg
-    .append('line');
+    .append('line')
+    .attr('x1', 370)
+    .attr('x2', 400)
+    .attr('y1', 20)
+    .attr('y2', 120)
+    .attr('stroke', 'red');
