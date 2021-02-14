@@ -1,11 +1,31 @@
-const svg = d3.select('svg');
+const svg = d3
+    .select('.canvas')
+    .append('svg')
+    .attr('width', 600)
+    .attr('height', 600);
+
+// Create margins and dimension
+const margin = {
+    top: 20,
+    right: 20,
+    bottom: 100,
+    left: 100
+};
+const graphWidth = 600 - margin.left - margin.right;
+const graphHeight = 600 - margin.top - margin.bottom;
+
+const graph = svg
+    .append('g')
+    .attr('width', graphWidth)
+    .attr('height', graphHeight)
+    .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
 d3
     .json('menu.json')
     .then(data => {
         const y = d3
             .scaleLinear()
-            .domain([0, 1000])
+            .domain([0, d3.max(data, d => d.orders)])
             .range([0, 500]);
 
         const x = d3
@@ -16,7 +36,7 @@ d3
             .paddingOuter(0.2);
 
         // Join the data to rects
-        const rects = svg
+        const rects = graph
             .selectAll('rect')
             .data(data);
 
