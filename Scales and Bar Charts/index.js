@@ -77,10 +77,13 @@ const update = (data) => {
         .enter()
         .append('rect')
         .attr('width', x.bandwidth)
-        .attr('height', d => graphHeight - y(d.orders))
+        .attr('height', 0)
         .attr('fill', 'orange')
         .attr('x', d => x(d.name))
-        .attr('y', d => y(d.orders));
+        .attr('y', graphHeight)
+        .transition().duration(500)
+            .attr('y', d => y(d.orders))
+            .attr('height', d => graphHeight - y(d.orders));
 
     // Call axes
     xAxisGroup.call(xAxis);
