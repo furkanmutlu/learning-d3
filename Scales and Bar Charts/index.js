@@ -69,22 +69,20 @@ const update = (data) => {
         .attr('width', x.bandwidth)
         .attr('fill', 'orange')
         .attr('x', d => x(d.name))
-        .transition().duration(1000)
-        .attr('height', d => graphHeight - y(d.orders))
-        .attr('y', d => y(d.orders));
 
     // Append the enter selection to the DOM
     rects
         .enter()
         .append('rect')
-        .attr('width', x.bandwidth)
-        .attr('height', 0)
-        .attr('fill', 'orange')
-        .attr('x', d => x(d.name))
-        .attr('y', graphHeight)
-        .transition().duration(500)
-            .attr('y', d => y(d.orders))
-            .attr('height', d => graphHeight - y(d.orders));
+            .attr('width', x.bandwidth)
+            .attr('height', 0)
+            .attr('fill', 'orange')
+            .attr('x', d => x(d.name))
+            .attr('y', graphHeight)
+            .merge(rects)
+            .transition().duration(500)
+                .attr('y', d => y(d.orders))
+                .attr('height', d => graphHeight - y(d.orders));
 
     // Call axes
     xAxisGroup.call(xAxis);
